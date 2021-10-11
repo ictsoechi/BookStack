@@ -74,6 +74,7 @@ class UserController extends Controller
     {
         $this->checkPermission('users-manage');
         $validationRules = [
+            'username' => 'required|unique:users,username',
             'name'  => 'required',
             'email' => 'required|email|unique:users,email',
         ];
@@ -155,6 +156,7 @@ class UserController extends Controller
         $this->checkPermissionOrCurrentUser('users-manage', $id);
 
         $this->validate($request, [
+            'username'         => 'min:2|string|required|unique:users,username,' . $id,
             'name'             => 'min:2',
             'email'            => 'min:2|email|unique:users,email,' . $id,
             'password'         => 'min:6|required_with:password_confirm',
@@ -164,11 +166,16 @@ class UserController extends Controller
         ]);
 
         $user = $this->userRepo->getById($id);
-        $user->fill($request->except(['email']));
+        $user->fill($request->except(['email', 'username']));
 
         // Email updates
         if (userCan('users-manage') && $request->filled('email')) {
             $user->email = $request->get('email');
+        }
+
+        // Username updates
+        if (userCan('users-manage') && $request->filled('username')) {
+            $user->username = $request->get('username');
         }
 
         // Refresh the slug if the user's name has changed

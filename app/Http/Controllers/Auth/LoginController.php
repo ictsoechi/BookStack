@@ -54,7 +54,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return config('auth.method') === 'standard' ? 'email' : 'username';
+        return config('auth.method') === 'standard' ? 'username' : 'username';
     }
 
     /**
@@ -73,9 +73,9 @@ class LoginController extends Controller
         $socialDrivers = $this->socialAuthService->getActiveDrivers();
         $authMethod = config('auth.method');
 
-        if ($request->has('email')) {
+        if ($request->has('username')) {
             session()->flashInput([
-                'email'    => $request->get('email'),
+                'username'    => $request->get('username'),
                 'password' => (config('app.env') === 'demo') ? $request->get('password', '') : '',
             ]);
         }
@@ -179,7 +179,7 @@ class LoginController extends Controller
         $authMethod = config('auth.method');
 
         if ($authMethod === 'standard') {
-            $rules['email'] = 'required|email';
+            $rules['username'] = 'required|string';
         }
 
         if ($authMethod === 'ldap') {

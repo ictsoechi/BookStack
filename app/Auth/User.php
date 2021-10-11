@@ -30,6 +30,7 @@ use Illuminate\Support\Collection;
  * @property string     $id
  * @property string     $name
  * @property string     $slug
+ * @property string     $username
  * @property string     $email
  * @property string     $password
  * @property Carbon     $created_at
@@ -59,7 +60,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email'];
+    protected $fillable = ['username', 'name', 'email'];
 
     protected $casts = ['last_activity_at' => 'datetime'];
 
