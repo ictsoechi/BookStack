@@ -13,6 +13,10 @@
     @endif
     <div class="grid half mt-m gap-xl">
         <div>
+            <label for="name">{{ trans('auth.username') }}</label>
+            @include('form.text', ['name' => 'username'])
+        </div>
+        <div>
             <label for="name">{{ trans('auth.name') }}</label>
             @include('form.text', ['name' => 'name'])
         </div>
