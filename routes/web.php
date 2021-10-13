@@ -280,3 +280,6 @@ Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetFor
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::fallback('HomeController@notFound')->name('fallback');
+
+// temporary 
+Route::get('/temp/assign-mass-role', 'TemporaryController@assignMassRole');
